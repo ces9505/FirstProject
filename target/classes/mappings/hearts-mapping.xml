@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="HeartsDAO">
+	<resultMap type="hearts" id="heartsResult">
+		<id property="heart_id" column="HEART_ID" />
+		<id property="userid" column="USERID" />
+		<id property="boardtitle" column="BOARDTITLE" />
+		<id property="boardnumber" column="BOARDNUMBER" />
+		<id property="time" column="TIME" />
+	</resultMap>
+
+	<insert id="insertHearts" parameterType="hearts">
+	<![CDATA[
+		INSERT INTO HEARTS(USERID,BOARDTITLE,BOARDNUMBER)
+		
+		VALUES(#{userid},#{boardtitle},#{boardnumber})
+		]]>
+
+
+
+	</insert>
+	<select id="getHeartList" resultMap="heartsResult">
+	<![CDATA[	
+		SELECT * FROM HEARTS WHERE USERID= #{userid} ORDER BY HEART_ID DESC
+	]]>
+	</select>
+	<select id="getHearts" resultType="hearts">
+	<![CDATA[
+		SELECT * FROM HEARTS WHERE USERID=#{userid} AND BOARDNUMBER = #{boardnumber}
+		]]>
+
+	</select>
+	<select id="getCountHearts" resultType="int">
+	<![CDATA[
+		SELECT COUNT(*) FROM HEARTS WHERE BOARDNUMBER = #{boardnumber}
+		]]>
+
+	</select>
+
+	<delete id="deleteHearts">
+	<![CDATA[
+		DELETE FROM HEARTS WHERE USERID=#{userid} AND BOARDNUMBER = #{boardnumber}
+		]]>
+
+
+	</delete>
+
+
+
+
+</mapper>
